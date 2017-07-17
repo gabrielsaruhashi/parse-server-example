@@ -43,3 +43,30 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   response.success('success');
 });
+
+Parse.Cloud.define("sendAnnouncement", function(request, response) {
+        var name = request.params.senderName;
+        var msg = request.params.message;
+
+        Parse.Push.send({
+                channels: [ request.params.accountId ],
+                data: {
+                        title: name,
+                        message: msg,
+                        action: "com.hello.announcement.sample.SEND_ANNOUNCEMENT",
+                        senderId: request.params.senderId,
+                        accountId: request.params.accountId
+                }
+        }, {
+                success: function() {
+                        // Push was successful
+                        response.success("sendAnnouncement sent");
+                },
+                error: function(error) {
+                        // Handle error
+                        response.error("error with sendAnnouncement: " + error);
+                },
+                useMasterKey: true
+        });
+});
+
