@@ -2,6 +2,7 @@
 // To be used with:
 // https://github.com/codepath/ParsePushNotificationExample
 // See https://github.com/codepath/ParsePushNotificationExample/blob/master/app/src/main/java/com/test/MyCustomReceiver.java
+Parse.masterKey = 'myMasterKey';
 
 Parse.Cloud.define('pushChannelTest', function(request, response) {
 
