@@ -53,3 +53,10 @@ httpServer.listen(port, function() {
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
+
+// add support for GCM
+if (process.env.GCM_SENDER_ID && process.env.GCM_API_KEY) {
+   pushConfig['android'] = { 
+   senderId: process.env.GCM_SENDER_ID || '',
+   apiKey: process.env.GCM_API_KEY || ''};
+}
