@@ -15,7 +15,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   var channel = params.channelID;
 
   // use to custom tweak whatever payload you wish to send
-  var pushQuery = Parse.Query(Parse.Installation);
+  var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.equalTo("channels", channel); // Set the channel
 
   var payload = {};
