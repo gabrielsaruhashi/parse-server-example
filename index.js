@@ -11,6 +11,13 @@ if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
+// add support for GCM
+if (process.env.GCM_SENDER_ID && process.env.GCM_API_KEY) {
+   pushConfig['android'] = {
+   senderId: process.env.GCM_SENDER_ID || '',
+   apiKey: process.env.GCM_API_KEY || ''};
+}
+
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -59,11 +66,3 @@ httpServer.listen(port, function() {
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
-
-// add support for GCM
-
-if (process.env.GCM_SENDER_ID && process.env.GCM_API_KEY) {
-   pushConfig['android'] = {
-   senderId: process.env.GCM_SENDER_ID || '',
-   apiKey: process.env.GCM_API_KEY || ''};
-}
