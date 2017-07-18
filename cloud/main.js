@@ -14,8 +14,12 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   var broadcast = params.broadcast;
 
   // use to custom tweak whatever payload you wish to send
-  var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.equalTo("deviceType", "android");
+  //var pushQuery = new Parse.Query(Parse.Installation);
+  //pushQuery.equalTo("deviceType", "android");
+
+  var sender = JSON.parse(customData).sender;
+  var query = new Parse.Query(Parse.Installation);
+  query.equalTo("installationId", sender);
 
   var payload = {};
 
@@ -32,7 +36,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   // Note that useMasterKey is necessary for Push notifications to succeed.
 
   Parse.Push.send({
-  where: pushQuery,      // for sending to a specific channel
+  where: query,      // for sending to a specific channel
   data: payload,
   }, { success: function() {
      console.log("#### PUSH OK");
