@@ -19,7 +19,9 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   // use to custom tweak whatever payload you wish to send
   var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.equalTo("channels", channel); // Set the channel
-  pushQuery.notEqualTo("deviceToken", token) //do not notify the poster
+  //pushQuery.notEqualTo("deviceToken", token) //do not notify the poster
+  console.log(token);
+  console.log(pushQuery.toString());
 
   var payload = {};
 
