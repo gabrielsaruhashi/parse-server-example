@@ -13,10 +13,13 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   var launch = params.launch;
   var broadcast = params.broadcast;
   var channel = params.channelID;
+  var sender = params.senderID;
+  var token = params.token;
 
   // use to custom tweak whatever payload you wish to send
   var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.equalTo("channels", channel); // Set the channel
+  pushQuery = Parse.Query.doesNotMatchQuery("deviceToken", token)
 
   var payload = {};
 
@@ -34,7 +37,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   Parse.Push.send({
   where: pushQuery,     // for sending to a specific channel
-  data: {"action": "com.example.UPDATE_STATUS", "newsItem": title, "alert": customData},
+  data: {"action": "com.example.UPDATE_STATUS", "newsItem": title, "title": title, "alert": customData},
   }, { success: function() {
      console.log("#### PUSH OK");
   }, error: function(error) {
