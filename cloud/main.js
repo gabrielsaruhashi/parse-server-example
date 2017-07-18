@@ -2,8 +2,6 @@
 // To be used with:
 // https://github.com/codepath/ParsePushNotificationExample
 // See https://github.com/codepath/ParsePushNotificationExample/blob/master/app/src/main/java/com/test/MyCustomReceiver.java
-import ParseInstallation;
-
 Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   // request has 2 parameters: params passed by the client and the authorized user
