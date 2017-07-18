@@ -48,3 +48,31 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   response.success('success');
 });
+
+Parse.Cloud.define('pushMemoryNotification', function(request, response) {
+  var params = request.params;
+  var user = request.user;
+
+  var customData = params.customData;
+  var eventId = params.eventId;
+
+  var pushQuery = new Parse.Query(Parse.Installation);
+  pushQuery.equalTo("channels", eventId);
+
+  var payload = {};
+
+  if (customData) {
+      payload.customdata = customData;
+  }
+
+  Parse.Push.send({
+  where: pushQuery,     // for sending to a specific channel
+  data: {"action": "com.example.UPDATE_STATUS", "title": "Event Reminder", "alert": customData},
+  }, { success: function() {
+     console.log("#### PUSH OK");
+  }, error: function(error) {
+     console.log("#### PUSH ERROR" + error.message);
+  }, useMasterKey: true});
+
+  response.success('success');
+});
