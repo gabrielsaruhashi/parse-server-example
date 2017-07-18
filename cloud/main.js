@@ -15,7 +15,6 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   // use to custom tweak whatever payload you wish to send
   var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.equalTo("deviceType", "android");
 
   //var sender = JSON.parse(customData).sender;
   //var query = new Parse.Query(Parse.Installation);
@@ -37,7 +36,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   Parse.Push.send({
   where: {"deviceType": "android"},      // for sending to a specific channel
-  data: {"action": "com.example.UPDATE_STATUS", "newsItem": "Man bites dog", "name": "Vaughn", "alert": "Ricky Vaughn was injured during the game last night!"},
+  data: {"action": "com.example.UPDATE_STATUS", "alert": customData},
   }, { success: function() {
      console.log("#### PUSH OK");
   }, error: function(error) {
