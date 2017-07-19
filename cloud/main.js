@@ -39,7 +39,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   Parse.Push.send({
   where: pushQuery,     // for sending to a specific channel
-  data: {"action": "com.example.UPDATE_STATUS", "newsItem": title, "title": title, "alert": customData},
+  data: {"action": "com.example.UPDATE_STATUS", "newsItem": title, "title": title, "alert": customData, "event_id": channel},
   }, { success: function() {
      console.log("#### PUSH OK");
   }, error: function(error) {
