@@ -1,10 +1,11 @@
 // Example express application adding the parse-server module to expose Parse
 // compatible API routes.
 
+var relic = require('newrelic');
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
-var relic = require('newrelic');
+
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
