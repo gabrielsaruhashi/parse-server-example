@@ -76,3 +76,25 @@ Parse.Cloud.define('pushMemoryNotification', function(request, response) {
 
   response.success('success');
 });
+
+Parse.Cloud.define('pushRecommendedEventNotification', function(request, response) {
+  var params = request.params;
+  var userId = params.userId;
+  var friendName = params.friendName;
+
+  var pushQuery = new Parse.Query(Parse.User);
+  pushQuery.equalTo("id", userId);
+
+  Parse.Push.send({
+  where: pushQuery,     // for sending to a specific channel
+  data: {"action": "com.example.UPDATE_STATUS",
+  "title": "New event!",
+  "alert": friendName + " has created an event you might be interested in. Check it out!"},
+  }, { success: function() {
+     console.log("#### PUSH OK");
+  }, error: function(error) {
+     console.log("#### PUSH ERROR" + error.message);
+  }, useMasterKey: true});
+
+  response.success('success');
+});
